@@ -1,0 +1,49 @@
+{% extends "email_automate/base.html" %}
+
+{% block title %}
+Детали отправленного сообщения
+{% endblock %}
+
+{% block header %}
+Детали отправленного сообщения
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        {% if user.is_authenticated %}
+            <div class="card">
+                <div class="card-header bg-secondary text-white">
+                    <h3>Детали сообщения</h3>
+                </div>
+                <div class="card-body">
+                    <p><strong>Получатель:</strong> {{ emails.to }}</p>
+                    <p><strong>Тема:</strong> {{ emails.subject }}</p>
+                    <p><strong>Сообщение:</strong></p>
+                    <div class="border p-3 bg-light">
+                        {{ emails.body }}
+                    </div>
+                    <p><strong>Ответный Email:</strong> {{ emails.reply_to }}</p>
+                    <p><strong>Отправитель:</strong> {{ emails.from_email }}</p>
+                    {% if emails.mail_attachment %}
+                        <p><strong>Вложение:</strong> <a href="{{ emails.mail_attachment.url }}" download>{{ emails.mail_attachment.name }}</a></p>
+                    {% endif %}
+                    <p><strong>Отправлено пользователем:</strong> {{ emails.from_user }}</p>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="{% url 'email_history' %}" class="btn btn-primary">Назад к списку</a>
+                </div>
+                <div class="card-footer text-center">
+                     <a href="{% url 'main_page' %}" class="text-decoration-none">
+                            Вернуться на главную страницу
+                     </a>
+                </div>
+            </div>
+        {% else %}
+            <div class="alert alert-warning" role="alert">
+                Пожалуйста, <a href="{% url 'login' %}" class="alert-link">войдите</a>, чтобы просмотреть детали сообщения.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

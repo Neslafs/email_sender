@@ -1,0 +1,38 @@
+{% extends "email_automate/base.html" %}
+
+{% block title %}
+Создать Email
+{% endblock %}
+
+{% block header %}
+Создать Email
+{% endblock %}
+
+{% block content %}
+<form action="create_email" method="post" enctype="multipart/form-data" class="shadow p-4 rounded bg-light">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="to" class="form-label">Получатель</label>
+        {{ email_form.to }}
+    </div>
+    <div class="mb-3">
+        <label for="subject" class="form-label">Тема сообщения</label>
+        {{ email_form.subject }}
+    </div>
+    <div class="mb-3">
+        <label for="body" class="form-label">Текст сообщения</label>
+        {{ email_form.body }}
+    </div>
+    <div class="mb-3">
+        <label for="mail_attachment" class="form-label">Прикрепить файл</label>
+        {{ email_form.mail_attachment }}
+    </div>
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary w-100">Отправить</button>
+    </div>
+    <br>
+     <a href="{% url 'main_page' %}" class="text-decoration-none">
+                            Вернуться на главную страницу
+     </a>
+</form>
+{% endblock %}

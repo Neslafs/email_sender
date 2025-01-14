@@ -1,0 +1,61 @@
+body {
+    background-color: #f8f9fa;
+}
+
+h1 {
+    color: #343a40;
+    font-weight: bold;
+}
+
+form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+button {
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+/* Общий стиль кнопок */
+.custom-btn {
+    background-color: #d4d4d4; /* Нейтральный серый */
+    color: #333; /* Тёмно-серый текст */
+    border: 1px solid #b0b0b0; /* Тонкая рамка */
+    transition: background-color 0.3s, color 0.3s; /* Анимация перехода */
+}
+
+.custom-btn:hover {
+    background-color: #b0b0b0; /* Более насыщенный серый при наведении */
+    color: #fff; /* Белый текст при наведении */
+}
+
+/* Кнопка с рамкой */
+.custom-btn-outline {
+    background-color: transparent;
+    color: #666; /* Светло-серый текст */
+    border: 1px solid #d4d4d4;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.custom-btn-outline:hover {
+    background-color: #d4d4d4;
+    color: #333; /* Тёмный текст при наведении */
+}
+
+/* Светлая кнопка */
+.custom-btn-light {
+    background-color: #f8f9fa; /* Светло-серый */
+    color: #333;
+    border: 1px solid #e0e0e0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.custom-btn-light:hover {
+    background-color: #e0e0e0; /* Более насыщенный серый */
+    color: #000; /* Чёрный текст при наведении */
+}

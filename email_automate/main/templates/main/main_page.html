@@ -1,0 +1,45 @@
+{% extends "email_automate/base.html" %}
+
+{% block title %}
+Главная страница
+{% endblock %}
+
+{% block header %}
+Главная страница
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        {% if user.is_authenticated %}
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-light text-dark">
+                    <h3 class="text-center mb-0">Добро пожаловать, {{ user.username }}!</h3>
+                </div>
+                <div class="card-body bg-white">
+                    <p class="text-muted text-center mb-4">Выберите действие:</p>
+
+                    <!-- Действие 1 -->
+                    <div class="action-item mb-3 p-3 border rounded">
+                        <a href="{% url 'create_email' %}" class="btn custom-btn w-100">Отправить почту</a>
+                    </div>
+
+                    <!-- Действие 2 -->
+                    <div class="action-item mb-3 p-3 border rounded">
+                        <a href="{% url 'email_history' %}" class="btn custom-btn-outline w-100">История отправленных сообщений</a>
+                    </div>
+
+                    <!-- Действие 3 -->
+                    <div class="action-item mb-3 p-3 border rounded">
+                        <a href="{% url 'custom_logout' %}" class="btn custom-btn-light w-100">Выйти из аккаунта</a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="alert alert-secondary text-center shadow-sm" role="alert">
+                <p class="mb-0">Пожалуйста, <a href="{% url 'login' %}" class="alert-link">войдите</a>, чтобы начать отправлять письма.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

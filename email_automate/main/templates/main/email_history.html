@@ -1,0 +1,48 @@
+{% extends "email_automate/base.html" %}
+
+{% block title %}
+История отправленных сообщений
+{% endblock %}
+
+{% block header %}
+История отправленных сообщений
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        {% if user.is_authenticated %}
+            <div class="card">
+                <div class="card-header bg-secondary text-white">
+                    <h3>Список отправленных сообщений</h3>
+                </div>
+                <div class="card-body">
+                    {% if emails %}
+                        <ul class="list-group">
+                            {% for mail in emails %}
+                                <li class="list-group-item">
+                                    <a href="{% url 'email_history_info' mail.id %}" class="text-decoration-none">
+                                        {{ mail.subject }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-muted">Нет отправленных сообщений.</p>
+                    {% endif %}
+                </div>
+                <div class="card-footer text-muted text-center">
+                    История сообщений {{ user.username }} <br>
+                        <a href="{% url 'main_page' %}" class="text-decoration-none">
+                            Вернуться на главную страницу
+                       </a>
+                </div>
+            </div>
+        {% else %}
+            <div class="alert alert-warning" role="alert">
+                Пожалуйста, <a href="{% url 'login' %}" class="alert-link">войдите</a>, чтобы просмотреть историю сообщений.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
