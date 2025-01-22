@@ -10,6 +10,7 @@ from rest_framework.permissions import IsAuthenticated
 from .forms import MailForm
 from .models import Mail
 from .serializers import MailSerializer
+from ..email_automate import settings
 
 
 def main_page(request):
@@ -24,6 +25,9 @@ def email_history(request):
 def email_history_info(request, pk):
     emails = Mail.objects.get(pk = pk)
     return render(request, 'main/email_history_info.html', {'emails': emails})
+
+
+MAX_FILE_SIZE = settings.MAX_UPLOAD_SIZE #Задаю максимальный размер вложения файла (10 мб)
 
 @login_required
 def create_email(request):
@@ -42,8 +46,12 @@ def create_email(request):
             )
             email_instance.from_user = request.user
 
+            #Проверка вложений
             if 'mail_attachment' in request.FILES:
                 for mail_attachment in request.FILES.getlist('mail_attachment'):
+                    if mail_attachment.size > MAX_FILE_SIZE:
+                        return HttpResponse("<h2>Ошибка: размер файла больше чем 10 мб.</h2>")
+                    # Если все ок, то прикрепляем файл
                     email.attach(mail_attachment.name, mail_attachment.read(), mail_attachment.content_type)
             try:
                 email.send()

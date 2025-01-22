@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ed9f8b8a-0d7f-43e3-b5cc-b2288a19b160" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/email_automate/main/serializers.py" afterDir="false" />
+    <list default="true" id="ed9f8b8a-0d7f-43e3-b5cc-b2288a19b160" name="Changes" comment="- Добавлена аутентификация через сессии, а также проверка аутинтифкации для доступа через API&#10;- Добавлены сериализатор и viewset для работы с моделью Mail&#10;-">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/email_automate/main/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/email_automate/main/tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/email_automate/main/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/email_automate/main/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/email_automate/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/email_automate/main/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -33,12 +30,12 @@
     &quot;assignee&quot;: &quot;Neslafs&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Neslafs/email_sender.git&quot;,
-    &quot;accountId&quot;: &quot;8140f4d0-e96d-48a2-8ea3-9b27ac70260f&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Neslafs/email_sender.git",
+    "accountId": "43ed2216-21c0-439a-b0d0-54912874f09f"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
 }</component>
@@ -72,6 +69,19 @@
       <option name="presentableId" value="Default" />
       <updated>1734768988103</updated>
     </task>
+    <task id="LOCAL-00001" summary="- Добавлена аутентификация через сессии, а также проверка аутинтифкации для доступа через API&#10;- Добавлены сериализатор и viewset для работы с моделью Mail&#10;-">
+      <option name="closed" value="true" />
+      <created>1737572344190</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1737572344190</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="- Добавлена аутентификация через сессии, а также проверка аутинтифкации для доступа через API&#10;- Добавлены сериализатор и viewset для работы с моделью Mail&#10;-" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Добавлена аутентификация через сессии, а также проверка аутинтифкации для доступа через API&#10;- Добавлены сериализатор и viewset для работы с моделью Mail&#10;-" />
   </component>
 </project>
