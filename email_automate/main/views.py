@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -10,7 +11,7 @@ from rest_framework.permissions import IsAuthenticated
 from .forms import MailForm
 from .models import Mail
 from .serializers import MailSerializer
-from ..email_automate import settings
+
 
 
 def main_page(request):
@@ -71,3 +72,6 @@ class MailViewSet(viewsets.ModelViewSet):
     serializer_class = MailSerializer
     permission_classes = [IsAuthenticated]
 
+    def get_queryset(self):
+        # Фильтруем письма по текущему пользователю
+        return Mail.objects.filter(from_user=self.request.user)
