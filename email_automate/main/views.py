@@ -4,46 +4,13 @@ from django.http import HttpResponse
 # Create your views here.
 from django.core.mail import EmailMessage
 from django.template.context_processors import request
+from rest_framework import serializers, viewsets
+from rest_framework.permissions import IsAuthenticated
 
 from .forms import MailForm
 from .models import Mail
+from .serializers import MailSerializer
 
-def send_email(request):
-    email = EmailMessage(
-        subject = 'Tech Support',
-        body = 'We received your request for tech service. We are working on it.',
-        from_email= 'pelicanpelican@mail.ru',
-        to = ['nessem17@mail.ru'],
-    )
-    #email.send()
-    return HttpResponse("<h2>You deliver the email!</h2>")
-
-def send_email_view(mail_subject, mail_message, user_email, personal_mail):
-    email = EmailMessage (
-        subject=mail_subject,
-        body = mail_message,
-        from_email='pelicanpelican@mail.ru',
-        to = user_email,
-        headers={'Reply-To' : personal_mail}
-    )
-    email.send()
-
-def email_sender(request):
-    if request.method == "POST":
-        mail_form = EmailForm(request.POST)
-        if mail_form.is_valid():
-            email = EmailMessage(
-                subject = mail_form.cleaned_data['subject'],
-                body = mail_form.cleaned_data['message'],
-                reply_to = [mail_form.cleaned_data['reply_to']],
-                from_email = 'pelicanpelican@mail.ru',
-                to = ['lolka1158@gmail.com'],
-            )
-            email.send()
-            return HttpResponse("<h2>You deliver the email!</h2>")
-    else:
-        mail_form = EmailForm()
-    return render(request, 'main/send_email.html', {"mail_form":mail_form})
 
 def main_page(request):
     return render(request, 'main/main_page.html')
@@ -89,5 +56,10 @@ def create_email(request):
         email_form = MailForm()
     return render(request, 'main/send_email.html', {"email_form": email_form})
 
+# API
 
+class MailViewSet(viewsets.ModelViewSet):
+    queryset = Mail.objects.all()
+    serializer_class = MailSerializer
+    permission_classes = [IsAuthenticated]
 
