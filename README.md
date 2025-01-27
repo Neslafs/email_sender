@@ -8,15 +8,23 @@ Email Sender — это простое Django-приложение для отп
 - История отправленных писем.
 
 # Установка 
+
+На данный момент залил проект чисто для ознакомления с кодом.
+
 1. Клонируйте репозиторий: https://github.com/Neslafs/email_sender.git
 
 2. Перейдите в папку проекта: cd email-sender
 
 3. Установите зависимости: pip install -r requirements.txt
 
-4. Выполните миграции: python manage.py migrate
+4. Установите PostegreSQL: https://www.postgresql.org/download/
 
-5. Запустьите сервер разработки: python manage.py runserver
+5. Создайте базу данных PostegreSQL, после чего подключите БД в настройках проекта.
+Используйте файл settings_example как шаблон настроек (в настройках также требуется ввести данные вашей почты: https://help.mail.ru/mail/mailer/2fa/).
+
+7. Выполните миграции: python manage.py migrate
+
+8. Запустите сервер разработки: python manage.py runserver
 
 # Использование
 
