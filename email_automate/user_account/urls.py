@@ -1,8 +1,11 @@
 from django.contrib import admin
 from django.contrib.auth import views
 from django.urls import path
-from .views import user_logout
+from .views import user_logout, UserViewSet
+from rest_framework import routers
 
+router = routers.DefaultRouter()
+router.register(r'api/users', UserViewSet)
 
 urlpatterns = [
     path('login/', views.LoginView.as_view(), name='login'),
@@ -12,3 +15,5 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/', views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset/done/', views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 ]
+
+urlpatterns += router.urls
