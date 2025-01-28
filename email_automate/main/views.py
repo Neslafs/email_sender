@@ -3,10 +3,11 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import HttpResponse
 # Create your views here.
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMessage, send_mail
 from django.template.context_processors import request
-from rest_framework import serializers, viewsets
+from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
+from django_filters import rest_framework as filters
 
 from .forms import MailForm
 from .models import Mail
@@ -42,10 +43,11 @@ def create_email(request):
                 to=[email_form.cleaned_data ['to']],
                 subject = email_form.cleaned_data['subject'],
                 body = email_form.cleaned_data['body'],
-                reply_to = ['pelicanpelican@mail.ru'],
-                from_email = 'pelicanpelican@mail.ru',
+                reply_to = ['noreply@example.com'],
+                from_email = 'noreply@example.com',
             )
             email_instance.from_user = request.user
+
 
             #Проверка вложений
             if 'mail_attachment' in request.FILES:
@@ -71,6 +73,11 @@ class MailViewSet(viewsets.ModelViewSet):
     queryset = Mail.objects.all()
     serializer_class = MailSerializer
     permission_classes = [IsAuthenticated]
+
+    # Фильтрация
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_fields = ('to', 'sent_date')
+
 
     def get_queryset(self):
         # Фильтруем письма по текущему пользователю
