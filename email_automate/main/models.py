@@ -12,6 +12,7 @@ class Mail(models.Model):
     mail_attachment = models.FileField(upload_to='attachments/', blank=True, null=True)
     from_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=None,
                                   null=True, blank=True)
+    sent_date = models.DateField('Дата создания письма', default=now)
 
     def __str__(self):
         return self.subject
