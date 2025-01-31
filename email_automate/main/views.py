@@ -6,12 +6,12 @@ from django.http import HttpResponse
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from django_filters import rest_framework as filters
+from rest_framework.response import Response
 
-from .utils import send_email
+from .utils import send_email_with_attachment
 from .forms import MailForm
 from .models import Mail
 from .serializers import MailSerializer
-
 
 
 def main_page(request):
@@ -36,13 +36,12 @@ def create_email(request):
             email_instance = email_form.save(commit=False)
             email_instance.from_user = request.user
 
-            result = send_email(
+            result = send_email_with_attachment(
                 to=[email_form.cleaned_data['to']],
                 subject=email_form.cleaned_data['subject'],
                 body=email_form.cleaned_data['body'],
                 from_email = settings.EMAIL_HOST_USER,
                 files=request.FILES.getlist('mail_attachment') if 'mail_attachment' in request.FILES else []
-
            )
 
             if result['status'] == 'sucсess':
@@ -51,7 +50,6 @@ def create_email(request):
 
             else:
                 return HttpResponse(f"<h2>Error: {result['message']}</h2>")
-
     else:
         email_form = MailForm()
     return render(request, 'main/send_email.html', {"email_form": email_form})
@@ -70,5 +68,24 @@ class MailViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         # Фильтруем письма по текущему пользователю
         return Mail.objects.filter(from_user=self.request.user)
+
+    def create(self, request, *args, **kwargs):
+        serializer = MailSerializer(data=request.data)
+
+        if serializer.is_valid():
+            result = send_email_with_attachment(
+                to = [serializer.validated_data['to']],
+                subject = serializer.validated_data['subject'],
+                body = serializer.validated_data['body'],
+                from_email = settings.EMAIL_HOST_USER,
+                files = request.FILES.getlist('mail_attachment') if 'mail_attachment' in request.FILES else []
+            )
+            if result['status'] == 'success':
+                serializer.save()
+                return Response({"message": result['message']}, status=200)
+            else:
+                return Response({'error':result['message']}, status=400)
+
+        return Response(serializer.errors, status=400)
 
 
