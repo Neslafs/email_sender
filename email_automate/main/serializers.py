@@ -6,4 +6,4 @@ from .models import Mail
 class MailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Mail
-        fields = '__all__'
+        fields = ['to', 'subject', 'body', 'mail_attachment']
